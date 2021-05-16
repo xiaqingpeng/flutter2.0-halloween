@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - image_jpeg (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - image_jpeg (from `.symlinks/plugins/image_jpeg/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  image_jpeg:
+    :path: ".symlinks/plugins/image_jpeg/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  image_jpeg: 9701349a66166fcdeb83098dbef736036c6dc141
+
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+
+COCOAPODS: 1.10.1
