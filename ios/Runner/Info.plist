@@ -46,5 +46,12 @@
 
 	<key>NSLocationWhenInUseUsageDescription</key>
     <string>要用定位</string>
+    
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+	<string>https</string>
+	<string>http</string>
+	</array>
+
 </dict>
 </plist>
