@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import './widget/shared_preferences.dart';
-class MinePage extends StatefulWidget {
-  final routes = {
-    '/shared_preferences': (BuildContext context) => new SharedPreferences(),
-  };
 
+class MinePage extends StatefulWidget {
   @override
   _MinePageState createState() => _MinePageState();
 }
@@ -12,19 +9,14 @@ class MinePage extends StatefulWidget {
 class _MinePageState extends State<MinePage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false, // 去除debugger
-      home: Scaffold(
-          appBar: AppBar(
-            title: Text('我的'),
-            centerTitle: true,
-          ),
-          body: ListView(
-            children: <Widget>[TabList()],
-          )),
-      routes: widget.routes,
-    );
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('我的'),
+          centerTitle: true,
+        ),
+        body: ListView(
+          children: <Widget>[TabList()],
+        ));
   }
 }
 

@@ -4,30 +4,57 @@ import 'page/home/index.dart';
 import 'page/car/index.dart';
 import 'page/category/index.dart';
 import 'page/mine/index.dart';
-
 import 'page/dynamic/index.dart';
+import 'package:provider/provider.dart';
+import './model/counter.dart';
+import 'model/color_them_provider.dart';
+import './page/mine/widget/shared_preferences.dart';
+import './page/dynamic/widget/state_management.dart';
+
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<Counter>.value(value: Counter()),
+        ChangeNotifierProvider<ColorThemeProvider>.value(
+            value: ColorThemeProvider())
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  final routes = {
+    '/shared_preferences': (BuildContext context) => new SharedPreferences(),
+    '/url_launcher': (BuildContext context) => new DynamicPage(),
+    '/state_management': (BuildContext context) => new StateManagement(),
+  };
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter 案列',
-      debugShowCheckedModeBanner: false, // 去除debugger
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        
-      ),
-      home: IndexPage(),
+    Color color = Provider.of<ColorThemeProvider>(context).color;
+    print(color);
+
+    return ChangeNotifierProvider(
+      create: (context) => ColorThemeProvider(),
+      child: Consumer<ColorThemeProvider>(
+          builder: (context, colorThemeProvider, child) {
+        print(colorThemeProvider.color);
+        return MaterialApp(
+          title: 'Flutter Demo',
+          debugShowCheckedModeBanner: false, // 去除debugger
+          theme: ThemeData(
+            primarySwatch: colorThemeProvider.color,
+            floatingActionButtonTheme: FloatingActionButtonThemeData(
+              foregroundColor: colorThemeProvider.color,
+            ),
+          ),
+          home: IndexPage(),
+        );
+      }),
     );
   }
 }
-
-
 
 class IndexPage extends StatefulWidget {
   _IndexPageState createState() => _IndexPageState();
@@ -48,7 +75,6 @@ class _IndexPageState extends State with WidgetsBindingObserver {
     DynamicPage(),
     CarPage(),
     MinePage()
-    
   ];
   int currentIndex = 0;
   var currentpage;
@@ -56,15 +82,14 @@ class _IndexPageState extends State with WidgetsBindingObserver {
   void initState() {
     currentpage = tabBodies[currentIndex];
     super.initState();
-   
+
     // 注册观察者
-   // WidgetsBinding.instance.addObserver(this);
+    // WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void didChangeAppLifecycleState(state) {
     super.didChangeAppLifecycleState(state);
-    
   }
 
   @override
@@ -117,6 +142,4 @@ class _IndexPageState extends State with WidgetsBindingObserver {
       ),
     );
   }
-
-  
 }

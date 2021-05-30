@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
               height: 120,
               width: screenWidth,
               child: Container(
-                decoration: BoxDecoration(color: Colors.blueAccent),
+                decoration: BoxDecoration(color: Theme.of(context).primaryColor),
                 child: TopTab(),
               ),
             ),

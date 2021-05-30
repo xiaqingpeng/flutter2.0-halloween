@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'widget/url_launcher.dart';
+import 'widget/state_management.dart';
+import 'widget/shared_preferences.dart';
 
 class DynamicPage extends StatefulWidget {
-  final routes = {
-    '/url_launcher': (BuildContext context) => new DynamicPage(),
-  };
-
   @override
   _DynamicPageState createState() => _DynamicPageState();
 }
@@ -13,25 +11,22 @@ class DynamicPage extends StatefulWidget {
 class _DynamicPageState extends State<DynamicPage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false, // 去除debugger
-      home: Scaffold(
-          appBar: AppBar(
-            title: Text('动态'),
-            centerTitle: true,
-          ),
-          body: ListView(
-            children: <Widget>[TabList()],
-          )),
-      routes: widget.routes,
-    );
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('动态'),
+          centerTitle: true,
+        ),
+        body: ListView(
+          children: <Widget>[TabList()],
+        ));
   }
 }
 
 class TabList extends StatelessWidget {
   final List navigatorList = [
-    {'name': 'url_launcher', 'id': 4, 'icon': 0xe67f},
+    {'name': 'url_launcher', 'id': 4, 'icon': 0xe67f, 'title': 'url_launcher'},
+    {'name': 'state_management', 'id': 5, 'icon': 0xe67f, 'title': '状态管理'},
+    {'name': 'shared_preferences', 'id': 4, 'icon': 0xe67f, 'title': '状态存储'}
   ];
 
   Widget _listViewItemUi(BuildContext context, item) {
@@ -42,7 +37,7 @@ class TabList extends StatelessWidget {
         color: Colors.grey,
       ),
       ListTile(
-        title: new Text(item["name"],
+        title: new Text(item["title"],
             style: new TextStyle(
               fontSize: 12.0,
               color: Colors.black54,
@@ -56,6 +51,10 @@ class TabList extends StatelessWidget {
                 switch (item['name']) {
                   case "url_launcher":
                     return UrlLauncher();
+                  case "state_management":
+                    return StateManagement();
+                  case "shared_preferences":
+                    return SharedPreferences();
 
                   default:
                     return UrlLauncher();
